@@ -1,0 +1,47 @@
+﻿@model Users
+@{
+    ViewData["Title"] = "Registration";
+}
+
+<h1>Registration</h1>
+<form method="post" asp-action="Registration">
+    <div class="col-6">
+        @Html.AntiForgeryToken()
+       
+      
+        <div class="mb-2">
+            <label asp-for="Full_Name"></label>
+            <input class="form-control" asp-for="Full_Name" />
+            <span asp-validation-for="Full_Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="User_Name"></label>
+            <input class="form-control" asp-for="User_Name" />
+            <span asp-validation-for="User_Name" class="text-danger"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="Email"></label>
+            <input class="form-control" asp-for="Email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="Password"></label>
+            <input class="form-control" asp-for="Password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="ConfirmPasword"></label>
+            <input class="form-control" asp-for="ConfirmPasword" />
+            <span asp-validation-for="ConfirmPasword" class="text-danger"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="PhoneNumber"></label>
+            <input class="form-control" asp-for="PhoneNumber" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+    </div>
+    
+    <input type="submit" value="Registration" class="btn btn-primary" />
+</form>
+

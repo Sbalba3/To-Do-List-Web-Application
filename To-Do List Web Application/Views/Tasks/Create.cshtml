@@ -1,0 +1,26 @@
+﻿@model Tasks
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<form method="post" asp-action="Create">
+    <div class="col-6">
+        @Html.AntiForgeryToken()
+
+
+        <div class="mb-2">
+            <label asp-for="Title"></label>
+            <input class="form-control" asp-for="Title" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="Description"></label>
+            <input class="form-control" asp-for="Description" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+    <input type="submit" value="Create" class="btn btn-success" />
+</form>

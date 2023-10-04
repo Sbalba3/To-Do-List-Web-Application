@@ -1,0 +1,31 @@
+﻿@model Tasks
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<form method="post" asp-action="Edit">
+    <div class="col-6">
+        @Html.AntiForgeryToken()
+
+
+        <div class="mb-2">
+            <label asp-for="Title"></label>
+            <input class="form-control" asp-for="Title" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="Description"></label>
+            <input class="form-control" asp-for="Description" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="Date"></label>
+            <input class="form-control" asp-for="Date" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+    </div>
+    <input type="submit" value="Edit" class="btn btn-success" />
+</form>

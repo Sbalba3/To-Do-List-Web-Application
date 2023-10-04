@@ -1,0 +1,110 @@
+﻿@model List<Tasks>
+@{
+    ViewData["Title"] = "Index";
+    var i = 1;
+}
+
+<h1>Index</h1>
+
+<div class="container my-2">
+    <div class="row justify-content-between">
+       
+        <div>
+            <a asp-action="Create" class="btn btn-primary">Add Task</a>
+        </div>
+    </div>
+</div>
+<div class="card shadow mb-4 text-center">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="" id="myTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>                    
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr id="row_@item.Id" class="p-2 bg-warning m-1  rounded-pill">
+                            <td>@item.Title</td>
+                            <td>@item.Description</td>
+                            <td>@item.Date</td>
+
+                            <td>
+                                <a asp-action="Edit" asp-controller="Tasks" asp-route-id="@item.Id" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-danger" value="Delete" onclick="Delete(@item.Id)"><i class="bi bi-trash3"></i></button>
+                            </td>
+                            <td>
+                                <label class="switch">
+                                    <input id="status_button" onclick="changeStatus(@item.Id)" type="checkbox" @(item.IsCompleted ? "checked" : "")>
+                                    <span class="slider round"></span>
+                                </label>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        function Delete(id) {
+            $.ajax({
+                type: "POST",
+                url: `@Url.Action("Delete")`,
+                data: { id: id },
+                dataType: "text",
+                success: function (response) {
+                    if (response.trim() == "sucsses") {
+                        $("#row_" + id).remove()
+                    }
+                },
+                error: function () {
+                    alert("Error while deleting data");
+                }
+            });
+        }
+    </script>
+    <script src="~/lib/datatables/datatables.js"></script>
+    <script src="~/lib/datatables/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable(
+                
+                   
+                
+            );
+        });
+    </script>
+    <script>
+        function changeStatus(id) {
+            $.ajax({
+                url: `/Tasks/changeState/${id}`,
+                method: 'GET',
+                success: function () {
+                    console.log("Sucess");
+
+                },
+                error: function () {
+                    console.log("Error");
+
+                }
+            });
+        }
+    </script>
+}
